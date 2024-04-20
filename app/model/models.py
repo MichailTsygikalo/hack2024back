@@ -29,9 +29,10 @@ pasport = Table(
     'pasport',
     metadata,
     Column('id', Integer, primary_key=True),
-    Column('series', String(4),nullable= False, unique=True),
+    Column('series', String(4),nullable= False),
     Column('number', String(6),nullable= False, unique=True),
     Column('registration_id',Integer, ForeignKey('registration.id', ondelete='cascade')),
+    Column('people_id',Integer, ForeignKey('people.id', ondelete='cascade')),
     Column('date_issue', Date, nullable= False),
 )
 
@@ -79,5 +80,6 @@ contractor = Table(
     Column('name',String(255),nullable= False, unique=True), 
     Column('user_id',Integer, ForeignKey('user.id', ondelete='cascade'),nullable = False, unique=True),
     Column('registration_id',Integer, ForeignKey('registration.id', ondelete='cascade')),
+    Column('photo',String(255)), 
 )
 
