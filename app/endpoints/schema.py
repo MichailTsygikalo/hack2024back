@@ -42,8 +42,8 @@ class PeopleModel(BaseModel):
         arbitrary_types_allowed = True
 
 class DocModel(BaseModel):
-    polis: str[16]
-    snils: str[14]
+    polis: constr(max_length=16)
+    snils: constr(max_length=14)
 
     class Config:
         arbitrary_types_allowed = True

@@ -39,7 +39,30 @@ def get_user(login):
         }
     return user_db
 
-def set_passport(pasport, user):
+def set_passport_db(pasport, user):
     for session in get_session():
-        pass
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        pasport_add = Pasport(
+            series = pasport.series, 
+            number = pasport.number, 
+            data_issue = pasport.data_issue
+        )
 
+def set_people_db(people, user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        people_add = People(
+                surname = people.surname, 
+                name = people.name, 
+                sec_name = people.sec_name, 
+                birthday = people.birthday, 
+                user_id = user_id
+            )
+        try:
+            session.add(people_add)
+            session.commit()
+            return people_add
+        except IntegrityError as e:
+            session.rollback()
+            return e
+    

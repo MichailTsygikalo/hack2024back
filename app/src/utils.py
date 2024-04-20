@@ -68,6 +68,6 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
 def get_current_active_user(
     current_user: Annotated[User, Depends(get_current_user)],
 ):
-    if current_user.disabled:
+    if not current_user:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
