@@ -38,3 +38,8 @@ def get_user(login):
             }
         }
     return user_db
+
+def set_passport(pasport, user):
+    for session in get_session():
+        pass
+
