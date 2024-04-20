@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, MetaData, String, Table, Column, Boolean, Date, ForeignKey
+from sqlalchemy import Integer, MetaData, String, Table, Column, Boolean, Date, ForeignKey, CheckConstraint
 
 metadata = MetaData()
 
@@ -9,8 +9,8 @@ user = Table(
     Column('login', String(255), nullable=False, unique=True), 
     Column('pswd', String(255), nullable=False),
     Column('status', Boolean, nullable=False),
-    Column('balance_money',Integer, nullable= False, default=0),
-    Column('balance_bonus',Integer, nullable= False, default=0),
+    Column('balance_money',Integer,CheckConstraint('balance_money >= 0'), nullable= False, default=30000, ),
+    Column('balance_bonus',Integer,CheckConstraint('balance_bonus >= 0'), nullable= False, default=1000),
 )
 
 people = Table(
@@ -85,3 +85,21 @@ contractor = Table(
     Column('photo',String(255)), 
 )
 
+service = Table(
+   'service',
+    metadata, 
+    Column('id', Integer, primary_key=True),
+    Column('name',String(255),nullable= False,), 
+    Column('contractor_id',Integer, ForeignKey('contractor.id', ondelete='cascade'),nullable = False,),
+    Column('price',Integer, default=0),   
+)
+
+sales = Table(
+    'sales',
+    metadata, 
+    Column('id', Integer, primary_key=True),
+    Column('people_id',Integer, ForeignKey('people.id', ondelete='cascade'),nullable = False,), 
+    Column('contractor_id',Integer, ForeignKey('contractor.id', ondelete='cascade'),nullable = False,),
+    Column('sum',Integer, default=0),
+    Column('count',Integer, default=0),
+)
