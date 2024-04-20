@@ -13,7 +13,7 @@ class User(Base):
     status = Column(Boolean, nullable=False)
     balance_money = Column(Integer, nullable=False, default=0)
     balance_bonus = Column(Integer, nullable=False, default=0)
-    people = relationship("People", back_populates="user")
+    #people = relationship("People", back_populates="user")
 
 class People(Base):
     __tablename__ = 'people'
@@ -26,8 +26,8 @@ class People(Base):
     user_id = Column(Integer, ForeignKey('user.id', ondelete='cascade'), nullable=False)
     photo = Column(String(255))
     
-    user = relationship("User", back_populates="people")
-    pasport = relationship("Pasport", back_populates="people")
+    #user = relationship("User", back_populates="people")
+    #pasport = relationship("Pasport", back_populates="people")
 
 class Pasport(Base):
     __tablename__ = 'pasport'
@@ -38,7 +38,7 @@ class Pasport(Base):
     registration_id = Column(Integer, ForeignKey('registration.id', ondelete='cascade'), nullable=False)
     date_issue = Column(Date, nullable=False)
     
-    people = relationship("People", back_populates="pasport")
+    #people = relationship("People", back_populates="pasport")
 
 class Registration(Base):
     __tablename__ = 'registration'
@@ -49,7 +49,7 @@ class Registration(Base):
     home = Column(Integer)
     flat = Column(Integer)
     
-    pasport = relationship("Pasport", back_populates="registration")
+    #pasport = relationship("Pasport", back_populates="registration")
 
 class Doc(Base):
     __tablename__ = 'doc'
@@ -59,8 +59,8 @@ class Doc(Base):
     snils = Column(String(14))
     people_id = Column(Integer, ForeignKey('people.id', ondelete='cascade'), nullable=False)
     pasport_id = Column(Integer, ForeignKey('pasport.id', ondelete='cascade'), nullable=False)
-    people = relationship("People", back_populates="doc")
-    pasport = relationship("Pasport", back_populates="doc")
+    #people = relationship("People", back_populates="doc")
+    #pasport = relationship("Pasport", back_populates="doc")
 
 class Benefit(Base):
     __tablename__ = 'benefit'
@@ -68,7 +68,7 @@ class Benefit(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
     doc_id = Column(Integer, ForeignKey('doc.id', ondelete='cascade'), nullable=False)
-    doc = relationship("Doc", back_populates="benefit")
+    #doc = relationship("Doc", back_populates="benefit")
 
 class Discount(Base):
     __tablename__ = 'discount'
