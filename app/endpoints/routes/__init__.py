@@ -1,0 +1,1 @@
+from app.endpoints.routes.router import router
