@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from app.endpoints.schema import UserReg
 from app.src.utils import hash_password
 from app.core.source import check_user_exists, create_new_user
-
+from app.config import ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY, ALGORITHM
 router = APIRouter()
 
 @router.post('/')
