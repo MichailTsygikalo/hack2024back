@@ -1,5 +1,5 @@
 from typing import Optional
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 from app.core.db import Session, get_session
 from app.core.schemas import *
@@ -42,11 +42,20 @@ def get_user(login):
 def set_passport_db(pasport, user):
     for session in get_session():
         user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        people_id = session.execute(select(People).where(People.user_id == user_id)).scalars().first().id
         pasport_add = Pasport(
             series = pasport.series, 
             number = pasport.number, 
-            data_issue = pasport.data_issue
+            date_issue = pasport.date_issue,
+            people_id = people_id
         )
+        try:
+            session.add(pasport_add)
+            session.commit()
+            return pasport_add
+        except IntegrityError as e:
+            session.rollback()
+            return e
 
 def set_people_db(people, user):
     for session in get_session():
@@ -56,7 +65,7 @@ def set_people_db(people, user):
                 name = people.name, 
                 sec_name = people.sec_name, 
                 birthday = people.birthday, 
-                user_id = user_id
+                user_id = user_id,
             )
         try:
             session.add(people_add)
@@ -66,3 +75,84 @@ def set_people_db(people, user):
             session.rollback()
             return e
     
+def set_docs_db(docs, user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        people_id = session.execute(select(People).where(People.user_id == user_id)).scalars().first().id
+        pasport_id = session.execute(select(Pasport).where(Pasport.people_id == people_id)).scalars().first().id
+        docs_add = Doc(
+            polis = docs.polis,
+            snils = docs.snils,
+            people_id = people_id,
+            pasport_id = pasport_id
+        )
+        try:
+            session.add(docs_add)
+            session.commit()
+            return docs_add
+        except IntegrityError as e:
+            session.rollback()
+            return e
+
+def set_contractor_db(contractor, user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        contractor_add = Contractor(
+            name = contractor.name,
+            user_id = user_id
+        )  
+        try:
+            session.add(contractor_add)
+            session.commit()
+            return contractor_add
+        except IntegrityError as e:
+            session.rollback()
+            return e  
+        
+def set_reg_people_db(reg, user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        people_id = session.execute(select(People).where(People.user_id == user_id)).scalars().first().id
+        pasport = session.execute(select(Pasport).where(Pasport.people_id == people_id)).scalars().first()
+
+        new_reg = Registration(
+            city = reg.city,
+            streat = reg.streat,
+            home = reg.home,
+            flat = reg.flat,
+            x = reg.coord_x,
+            y = reg.coord_y
+        )
+        try:
+            session.add(new_reg)
+            session.commit()
+            new_pasport = session.execute(update(Pasport).values(registration_id = new_reg.id))
+            session.commit()
+            return new_reg
+        except IntegrityError as e:
+            session.rollback()
+            return e
+
+
+def set_reg_contr_db(reg, user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        contractor = session.execute(select(Contractor).where(Contractor.user_id == user_id)).scalars().first()
+
+        new_reg = Registration(
+            city = reg.city,
+            streat = reg.streat,
+            home = reg.home,
+            flat = reg.flat,
+            x = reg.coord_x,
+            y = reg.coord_y
+        )
+        try:
+            session.add(new_reg)
+            session.commit()
+            new_contractor = session.execute(update(Contractor).values(registration_id = new_reg.id))
+            session.commit()
+            return new_reg
+        except IntegrityError as e:
+            session.rollback()
+            return e

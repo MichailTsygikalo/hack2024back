@@ -35,7 +35,8 @@ class Pasport(Base):
     id = Column(Integer, primary_key=True)
     series = Column(String(4), nullable=False)
     number = Column(String(6), nullable=False)
-    registration_id = Column(Integer, ForeignKey('registration.id', ondelete='cascade'), nullable=False)
+    registration_id = Column(Integer, ForeignKey('registration.id', ondelete='cascade'), )
+    people_id = Column(Integer, ForeignKey('people.id', ondelete='cascade'), )
     date_issue = Column(Date, nullable=False)
     
     #people = relationship("People", back_populates="pasport")
@@ -46,9 +47,10 @@ class Registration(Base):
     id = Column(Integer, primary_key=True)
     city = Column(String(255), nullable=False)
     streat = Column(String(255))
-    home = Column(Integer)
-    flat = Column(Integer)
-    
+    home = Column(String)
+    flat = Column(String)
+    x = Column(String)
+    y = Column(String)
     #pasport = relationship("Pasport", back_populates="registration")
 
 class Doc(Base):
@@ -83,3 +85,5 @@ class Contractor(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id', ondelete='cascade'),)
+    registration_id = Column(Integer, ForeignKey('registration.id', ondelete='cascade'),)
