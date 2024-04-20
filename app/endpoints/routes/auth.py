@@ -7,6 +7,7 @@ from app.src.utils import hash_password, verify_password
 from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
 from app.endpoints.schema import User, Token, TokenData, UserInDB
+from app.config import ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY, ALGORITHM
 
 
 
