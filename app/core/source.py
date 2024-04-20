@@ -24,3 +24,17 @@ def create_new_user(login, pswd)->Optional[User]:
         except IntegrityError as e:
             session.rollback()
             return {"IntegrityError:":e}
+    
+def get_user(login):
+    for session in get_session():
+        user = session.execute(select(User).filter(User.login == login)).scalars().first()
+        user_db = {
+            user.login : {
+                "username" : user.login,
+                "full_name" : user.login,
+                "email" : user.login,
+                "hashed_password" : user.pswd,
+                "disabled" : user.status
+            }
+        }
+    return user_db
