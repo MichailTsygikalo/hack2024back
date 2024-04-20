@@ -42,8 +42,10 @@ registration = Table(
     Column('id', Integer, primary_key=True),
     Column('city', String(255),nullable= False),
     Column('streat', String(255)),
-    Column('home',Integer),
-    Column('flat', Integer),
+    Column('home',String),
+    Column('flat', String),
+    Column('x',String),
+    Column('y', String),
 )
 
 doc = Table(
