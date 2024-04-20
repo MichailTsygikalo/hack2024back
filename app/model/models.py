@@ -31,7 +31,7 @@ pasport = Table(
     Column('id', Integer, primary_key=True),
     Column('series', String(4),nullable= False),
     Column('number', String(6),nullable= False),
-    Column('registration_id',Integer, ForeignKey('registration.id', ondelete='cascade'),nullable = False),
+    Column('registration_id',Integer, ForeignKey('registration.id', ondelete='cascade')),
     Column('date_issue', Date, nullable= False),
 )
 
