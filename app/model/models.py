@@ -76,7 +76,8 @@ contractor = Table(
    'contractor',
     metadata,
     Column('id', Integer, primary_key=True),
-    Column('name',String(255),nullable= False), 
+    Column('name',String(255),nullable= False, unique=True), 
     Column('user_id',Integer, ForeignKey('user.id', ondelete='cascade'),nullable = False),
+    Column('registration_id',Integer, ForeignKey('registration.id', ondelete='cascade')),
 )
 
