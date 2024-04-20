@@ -6,7 +6,7 @@ user = Table(
     'user',
     metadata, 
     Column('id', Integer, primary_key=True),
-    Column('login', String(255), nullable=False), 
+    Column('login', String(255), nullable=False, unique=True), 
     Column('pswd', String(255), nullable=False),
     Column('status', Boolean, nullable=False),
     Column('balance_money',Integer, nullable= False, default=0),
@@ -77,4 +77,6 @@ contractor = Table(
     metadata,
     Column('id', Integer, primary_key=True),
     Column('name',String(255),nullable= False), 
+    Column('user_id',Integer, ForeignKey('user.id', ondelete='cascade'),nullable = False),
 )
+
