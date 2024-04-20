@@ -156,3 +156,56 @@ def set_reg_contr_db(reg, user):
         except IntegrityError as e:
             session.rollback()
             return e
+        
+def get_passport_db(user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        people_id = session.execute(select(People).where(People.user_id == user_id)).scalars().first().id
+        pasport_new =  session.execute(select(Pasport).filter(Pasport.people_id == people_id)).scalars().first()
+        if pasport_new:
+            return pasport_new
+    return None
+
+def get_people_db(user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        people_new = session.execute(select(People).where(People.user_id == user_id)).scalars().first()
+        if people_new:
+            return people_new
+    return None
+
+def get_doc_db(user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        people_id = session.execute(select(People).where(People.user_id == user_id)).scalars().first().id
+        doc_new = session.execute(select(Doc).where(Doc.people_id == people_id)).scalars().first()
+        if doc_new:
+            return doc_new
+    return None
+
+def get_reg_db(user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        people_id = session.execute(select(People).where(People.user_id == user_id)).scalars().first().id
+        pasport_id =  session.execute(select(Pasport).filter(Pasport.people_id == people_id)).scalars().first().id
+        reg_new = session.execute(select(Registration).filter(Registration.id == pasport_id)).scalars().first()
+        if reg_new: 
+            return reg_new
+    return None
+
+def get_reg_contract_db(user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        contractor_id = session.execute(select(Contractor).where(Contractor.user_id == user_id)).scalars().first().id
+        reg_new = session.execute(select(Registration).filter(Registration.id == contractor_id)).scalars().first()
+        if reg_new:
+            return reg_new
+    return None
+
+def get_contractor_db(user):
+    for session in get_session():
+        user_id = session.execute(select(User).where(User.login == user.username)).scalars().first().id
+        constract_new =session.execute(select(Contractor).where(Contractor.user_id == user_id)).scalars().first()
+        if constract_new:
+            return constract_new
+    return None
