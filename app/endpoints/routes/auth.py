@@ -6,6 +6,7 @@ from app.core.source import get_user
 from app.src.utils import hash_password, verify_password
 from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
+from app.endpoints.schema import User, Token, TokenData, UserInDB
 
 
 
@@ -16,22 +17,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 ALGORITHM = "HS256"
 
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-class TokenData(BaseModel):
-    username: str | None = None
-
-class User(BaseModel):
-    username: str
-    email: str | None = None
-    full_name: str | None = None
-    disabled: bool | None = None
-
-class UserInDB(User):
-    hashed_password: str
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -119,8 +104,3 @@ async def read_own_items(
 ):
     return [{"item_id": "Foo", "owner": current_user.username}]
 
-
-@router.post('/')
-def auth():
-    # print(get_user("hello"))
-    print(authenticate_user("hello", "secret"))

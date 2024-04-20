@@ -1,13 +1,13 @@
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import JSONResponse
-from app.endpoints.schema import User
+from app.endpoints.schema import UserReg
 from app.src.utils import hash_password
 from app.core.source import check_user_exists, create_new_user
 
 router = APIRouter()
 
 @router.post('/')
-def registr(user: User):
+def registr(user: UserReg):
 
     existing_user = check_user_exists(user.username)
 
