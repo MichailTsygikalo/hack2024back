@@ -15,9 +15,9 @@ def set_pspt(pasport:PasportModel,user:User = Depends(get_current_active_user)):
     pasport_new = set_passport_db(pasport, user)
 
     if type(pasport_new) == Pasport:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=pasport_new)
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content="ok")
     
-    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=pasport_new)
+    JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content="error")
     
 @router.post('/people')    
 def set_people(people:PeopleModel,user:User = Depends(get_current_active_user)):
@@ -27,9 +27,9 @@ def set_people(people:PeopleModel,user:User = Depends(get_current_active_user)):
     people_new = set_people_db(people, user)
 
     if type(people_new) == People:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=people_new)
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content="ok")
     
-    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=people_new)
+    JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content="error")
 
 @router.post('/doc')    
 def set_docs(docs:DocModel,user:User = Depends(get_current_active_user)):
@@ -40,9 +40,9 @@ def set_docs(docs:DocModel,user:User = Depends(get_current_active_user)):
     new_doc = set_docs_db(docs, user)
 
     if type(new_doc) == Doc:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=new_doc)
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content="ok")
     
-    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=new_doc)
+    JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content="error")
 
 @router.post('/registration/people')    
 def set_reg(reg:RegistrationModel,user:User = Depends(get_current_active_user)):
@@ -53,9 +53,9 @@ def set_reg(reg:RegistrationModel,user:User = Depends(get_current_active_user)):
     new_reg = set_reg_people_db(reg, user)
 
     if type(new_reg) == Registration:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=new_reg)
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content="ok")
     
-    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=new_reg)
+    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content="error")
 
 @router.post('/registration/contractor')    
 def set_reg(reg:RegistrationModel,user:User = Depends(get_current_active_user)):
@@ -66,9 +66,9 @@ def set_reg(reg:RegistrationModel,user:User = Depends(get_current_active_user)):
     new_reg = set_reg_contr_db(reg, user)
 
     if type(new_reg) == Registration:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=new_reg)
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content="ok")
     
-    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=new_reg)
+    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content="error")
 
 @router.post('/contractor')    
 def set_con(contractor:ContractorModel,user:User = Depends(get_current_active_user)):
@@ -79,9 +79,9 @@ def set_con(contractor:ContractorModel,user:User = Depends(get_current_active_us
     new_contractor = set_contractor_db(contractor, user)
 
     if type(new_contractor) == Contractor:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=new_contractor)
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content="ok")
     
-    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=new_contractor)
+    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content="error")
 
 
 @router.get('/pspt')
@@ -92,7 +92,7 @@ def get_pspt(user:User = Depends(get_current_active_user)):
     pasport_new = get_passport_db(user)
 
     if type(pasport_new) == Pasport:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=pasport_new)
+        return pasport_new
     
     return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=pasport_new)
 
@@ -105,7 +105,7 @@ def get_people(user:User = Depends(get_current_active_user)):
     people_new = get_people_db(user)
 
     if type(people_new) == People:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=people_new)
+        return people_new
     
     return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=people_new)
 
@@ -118,7 +118,7 @@ def get_people(user:User = Depends(get_current_active_user)):
     doc_new = get_doc_db(user)
 
     if type(doc_new) == Doc:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=doc_new)
+        return doc_new
     
     return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=doc_new)
 
@@ -133,7 +133,7 @@ def get_reg(user:User = Depends(get_current_active_user)):
     reg_new = get_reg_db(user)
 
     if type(reg_new) == Registration:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=reg_new)
+        return reg_new
     
     return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=reg_new)
 
@@ -147,7 +147,7 @@ def set_reg(user:User = Depends(get_current_active_user)):
     reg_new = get_reg_contract_db(user)
 
     if type(reg_new) == Registration:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=reg_new)
+        return reg_new
     
     return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=reg_new)
 
@@ -160,6 +160,6 @@ def set_con(user:User = Depends(get_current_active_user)):
     new_contractor = get_contractor_db(user)
 
     if type(new_contractor) == Contractor:
-        return JSONResponse(status_code=status.HTTP_201_CREATED, content=new_contractor)
+        return new_contractor
     
     return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=new_contractor)
