@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, MetaData, String, Table, Column, Boolean, Date, ForeignKey, CheckConstraint
+from sqlalchemy import Integer, MetaData, String, Table, Column, Boolean, Date, ForeignKey, CheckConstraint, DECIMAL
 
 metadata = MetaData()
 
@@ -91,7 +91,7 @@ service = Table(
     Column('id', Integer, primary_key=True),
     Column('name',String(255),nullable= False,), 
     Column('contractor_id',Integer, ForeignKey('contractor.id', ondelete='cascade'),nullable = False,),
-    Column('price',Integer, default=0),   
+    Column('price',DECIMAL, default=0),   
 )
 
 sales = Table(
@@ -100,6 +100,6 @@ sales = Table(
     Column('id', Integer, primary_key=True),
     Column('people_id',Integer, ForeignKey('people.id', ondelete='cascade'),nullable = False,), 
     Column('contractor_id',Integer, ForeignKey('contractor.id', ondelete='cascade'),nullable = False,),
-    Column('sum',Integer, default=0),
+    Column('sum',DECIMAL, default=0),
     Column('count',Integer, default=0),
 )
