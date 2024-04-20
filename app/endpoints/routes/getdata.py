@@ -163,3 +163,4 @@ def set_con(user:User = Depends(get_current_active_user)):
         return new_contractor
     
     return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content=f"{new_contractor}")
+# 12
