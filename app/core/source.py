@@ -126,7 +126,7 @@ def set_reg_people_db(reg, user):
         try:
             session.add(new_reg)
             session.commit()
-            new_pasport = session.execute(update(Pasport).values(registration_id = new_reg.id))
+            new_pasport = session.execute(update(Pasport).values(registration_id = new_reg.id).where(Pasport.id == people_id))
             session.commit()
             return new_reg
         except IntegrityError as e:
@@ -150,7 +150,7 @@ def set_reg_contr_db(reg, user):
         try:
             session.add(new_reg)
             session.commit()
-            new_contractor = session.execute(update(Contractor).values(registration_id = new_reg.id))
+            new_contractor = session.execute(update(Contractor).values(registration_id = new_reg.id).where(Contractor.user_id == user_id))
             session.commit()
             return new_reg
         except IntegrityError as e:
