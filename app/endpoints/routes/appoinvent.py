@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
 from app.endpoints.schema import User as U
 from app.src.utils import get_current_active_user
-
+from datetime import datetime
 #
 from app.core.schemas import Service, Sales, People, User, Contractor
 from sqlalchemy.exc import IntegrityError
@@ -28,7 +28,7 @@ def appoinment_db(service_id, time, user:U): #регистрация запис�
         new_sale = Sales(
             people_id = people.id,
             service_id = service.id,
-            date = time
+            date = datetime.fromtimestamp(int(time))
         )
         try:
             session.add(new_sale)
