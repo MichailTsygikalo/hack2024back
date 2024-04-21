@@ -33,14 +33,14 @@ pasport = Table(
     Column('number', String(6),nullable= False, unique=True),
     Column('registration_id',Integer, ForeignKey('registration.id', ondelete='cascade')),
     Column('people_id',Integer, ForeignKey('people.id', ondelete='cascade')),
-    Column('date_issue', Date, nullable= False),
+    Column('date_issue', Date),
 )
 
 registration = Table(
     'registration',
     metadata,
     Column('id', Integer, primary_key=True),
-    Column('city', String(255),nullable= False),
+    Column('city', String(255),nullable= False, default="Ростов"),
     Column('streat', String(255)),
     Column('home',String),
     Column('flat', String),
