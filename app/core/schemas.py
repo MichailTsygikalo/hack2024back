@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, String, DECIMAL
+from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, String, DECIMAL, DATETIME
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -101,8 +101,9 @@ class Sales(Base):
     __tablename__ = 'sales'
     id = Column(Integer, primary_key=True)
     people_id = Column(Integer, ForeignKey('people.id', ondelete='cascade'),)
-    sales_id = Column(Integer, ForeignKey('sales.id', ondelete='cascade'),)
+    service_id = Column(Integer, ForeignKey('service.id', ondelete='cascade'),)
     sum = Column(DECIMAL, default=0)
     count = Column(Integer, default=0)
+    date = Column(DATETIME)
 
     
