@@ -99,7 +99,7 @@ sales = Table(
     metadata, 
     Column('id', Integer, primary_key=True),
     Column('people_id',Integer, ForeignKey('people.id', ondelete='cascade'),nullable = False,), 
-    Column('contractor_id',Integer, ForeignKey('contractor.id', ondelete='cascade'),nullable = False,),
+    Column('service_id',Integer, ForeignKey('service.id', ondelete='cascade'),nullable = False,),
     Column('sum',DECIMAL, default=0),
     Column('count',Integer, default=0),
     Column('date',DateTime, default=func.now() )
