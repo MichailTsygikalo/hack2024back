@@ -93,7 +93,7 @@ class Service(Base):
     __tablename__ = 'service'
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
-    constractor_id = Column(Integer, ForeignKey('constractor.id', ondelete='cascade'),)
+    contractor_id = Column(Integer, ForeignKey('contractor.id', ondelete='cascade'),)
     price = Column(DECIMAL, default=0)
 
     
@@ -101,7 +101,7 @@ class Sales(Base):
     __tablename__ = 'sales'
     id = Column(Integer, primary_key=True)
     people_id = Column(Integer, ForeignKey('people.id', ondelete='cascade'),)
-    constractor_id = Column(Integer, ForeignKey('constractor.id', ondelete='cascade'),)
+    sales_id = Column(Integer, ForeignKey('sales.id', ondelete='cascade'),)
     sum = Column(DECIMAL, default=0)
     count = Column(Integer, default=0)
 
