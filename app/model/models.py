@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, MetaData, String, Table, Column, Boolean, Date, ForeignKey, CheckConstraint, DECIMAL
+from sqlalchemy import Integer, MetaData, String, Table, Column, Boolean, Date, ForeignKey, CheckConstraint, DECIMAL, func, DateTime
 
 metadata = MetaData()
 
@@ -102,4 +102,5 @@ sales = Table(
     Column('contractor_id',Integer, ForeignKey('contractor.id', ondelete='cascade'),nullable = False,),
     Column('sum',DECIMAL, default=0),
     Column('count',Integer, default=0),
+    Column('date',DateTime, default=func.now() )
 )
