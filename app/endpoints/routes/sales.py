@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 router = APIRouter()
 
 
-@router.post('/')
+@router.post('')
 def get_sales(service_id: int, contractor_id: int, user:User = Depends(get_current_active_user)):
     print(service_id, contractor_id)
     if user:

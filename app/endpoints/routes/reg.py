@@ -5,7 +5,7 @@ from app.src.utils import hash_password
 from app.core.source import check_user_exists, create_new_user
 router = APIRouter()
 
-@router.post('/')
+@router.post('')
 def registr(user: UserReg):
 
     existing_user = check_user_exists(user.username)
